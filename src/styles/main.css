@@ -1,0 +1,10 @@
+/* Plus and Minus button hover effect */
+.plus-btn svg path,
+.minus-btn svg path {
+  transition: fill 0.2s ease-in-out;
+}
+
+.vote-container:hover .plus-btn svg path,
+.vote-container:hover .minus-btn svg path {
+  fill: #5357b6;
+}
