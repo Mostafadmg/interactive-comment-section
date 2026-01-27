@@ -61,6 +61,16 @@ function setupEventListeners() {
     handleAddComment(event); // Call the handler
     return;
   }
+
+
+
+  const replyBtn = event.target.closest(".reply-btn");
+
+  if (replyBtn) {
+    const commentId = Number(replyBtn.dataset.commentId);
+    store.replyingTo = commentId;
+    renderApp();
+  }
   });
 
 
