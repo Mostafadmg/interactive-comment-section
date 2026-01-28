@@ -62,8 +62,9 @@ const currentUser = {
 const store = {
   comments: initialComments,
   currentUser: currentUser,
-  replyingTo: null,
+  replyingTo: null, // To track which comment is being replied to
 };
 
 // Export so other files can use it
 export { store };
+                                

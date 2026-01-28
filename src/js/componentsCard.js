@@ -50,11 +50,11 @@ function createCommentCard(comment) {
               ? `
           <!-- Delete & Edit buttons (for own comments) -->
           <div class="flex items-center gap-4">
-            <button class="delete-btn group flex items-center gap-2 text-[#ED6368] hover:opacity-60 font-medium transition" data-comment-id="${comment.id}">
+            <button class="delete-btn group flex items-center gap-2 text-[#ED6368] hover:opacity-60 font-medium transition" data-comment-id="${comment.id}" data-type="comment">
               <img src="src/assets/images/icon-delete.svg" alt="delete" class="w-3 h-3">
               <span>Delete</span>
             </button>
-            <button class="edit-btn group flex items-center gap-2 text-[#5357B6] hover:opacity-60 font-medium transition" data-comment-id="${comment.id}">
+            <button class="edit-btn group flex items-center gap-2 text-[#5357B6] hover:opacity-60 font-medium transition" data-comment-id="${comment.id}" data-type="comment">
               <img src="src/assets/images/icon-edit.svg" alt="edit" class="w-3 h-3">
               <span>Edit</span>
             </button>
@@ -159,13 +159,13 @@ function createReplyCard(reply) {
 
           <!-- Reply button -->
           ${reply.author.username === store.currentUser.username ? `
-          <!-- Delete & Edit buttons (for own comments) -->
+          <!-- Delete & Edit buttons (for own replies) -->
           <div class="flex items-center gap-4">
-            <button class="delete-btn group flex items-center gap-2 text-[#ED6368] hover:opacity-60 font-medium transition" data-comment-id="${reply.id}">
+            <button class="delete-btn group flex items-center gap-2 text-[#ED6368] hover:opacity-60 font-medium transition" data-comment-id="${reply.id}" data-type="reply">
               <img src="src/assets/images/icon-delete.svg" alt="delete" class="w-3 h-3">
               <span>Delete</span>
             </button>
-            <button class="edit-btn group flex items-center gap-2 text-[#5357B6] hover:opacity-60 font-medium transition" data-comment-id="${reply.id}">
+            <button class="edit-btn group flex items-center gap-2 text-[#5357B6] hover:opacity-60 font-medium transition" data-comment-id="${reply.id}" data-type="reply">
               <img src="src/assets/images/icon-edit.svg" alt="edit" class="w-3 h-3">
               <span>Edit</span>
             </button>
