@@ -62,6 +62,7 @@ const currentUser = {
 const store = {
   comments: initialComments,
   currentUser: currentUser,
+  replyingTo: null,
 };
 
 // Export so other files can use it

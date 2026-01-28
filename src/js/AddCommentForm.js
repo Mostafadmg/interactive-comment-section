@@ -26,26 +26,26 @@ function createReplyForm(username) {
   <div class ="ml-4 md:ml-10 pl-4 md:pl-6 border-l-2 border-gray-200">
     <div class="addComment-container bg-white rounded-lg">
       <div class="addComment-content p-6">
-        
+
         <!-- Reply Input -->
         <div class="comment-Input">
-          <textarea 
-            name="textarea" 
-            id="textarea" 
-            placeholder="@${username}" 
+          <textarea
+            name="textarea"
+            id="reply-textarea"
+            placeholder="Replying to @${username}..."
             class="w-full h-28 resize-none text-[#67727E] leading-relaxed p-4 border border-gray-200 rounded-lg focus:outline-none focus:border-[#5357B6]"
           ></textarea>
         </div>
 
         <!-- Reply Actions -->
         <div class="addComment-actions flex flex-row justify-between items-center mt-4">
-          <img 
-            src="${store.currentUser.avatar}" 
-            alt="user" 
+          <img
+            src="${store.currentUser.avatar}"
+            alt="user"
             class="w-8 h-8 rounded-full"
           >
-          <button 
-            class="send-btn font-medium bg-[#5357B6] hover:bg-[#C5C6EF] text-white py-3 px-6 rounded-lg transition" 
+          <button
+            class="send-btn font-medium bg-[#5357B6] hover:bg-[#C5C6EF] text-white py-3 px-6 rounded-lg transition"
             data-send-btn
           >Reply</button>
         </div>
@@ -55,3 +55,5 @@ function createReplyForm(username) {
     </div>
   `;
 }
+
+
