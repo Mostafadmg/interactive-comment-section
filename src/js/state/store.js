@@ -54,7 +54,7 @@ How long have you been coding for? I’m still early in my journey but planning 
 ];
 
 const currentUser = {
-  username: "juliusomo",
+  username: "Mostafa Damghani",
   avatar: "/src/assets/images/avatars/Mostafa.jpg",
 };
 
@@ -63,8 +63,9 @@ const store = {
   comments: initialComments,
   currentUser: currentUser,
   replyingTo: null, // To track which comment is being replied to
+  beingEdited: null,
+  pendingDelete: null, // To track delete confirmation
 };
 
 // Export so other files can use it
 export { store };
-                                

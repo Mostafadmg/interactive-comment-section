@@ -85,7 +85,7 @@ parentComment.replies.push(reply)
 
 store.replyingTo = null
 
-replyTextarea.value = ""
+textarea.value = ""
 
 renderApp()
   }
@@ -112,6 +112,96 @@ renderApp()
   }
     renderApp();
   }
+
+
+
+  // Delete button
+  const deleteBtn = event.target.closest(".delete-btn");
+  if (deleteBtn) {
+    const commentId = parseInt(deleteBtn.dataset.commentId);
+    const commentType = deleteBtn.dataset.type;
+
+    // Store delete info and show modal
+    store.pendingDelete = { commentId, commentType };
+    document.getElementById("delete-modal").classList.remove("hidden");
+  }
+
+  // Cancel delete
+  const cancelDelete = event.target.closest("#cancel-delete");
+  if (cancelDelete) {
+    store.pendingDelete = null;
+    document.getElementById("delete-modal").classList.add("hidden");
+  }
+
+  // Confirm delete
+  const confirmDelete = event.target.closest("#confirm-delete");
+  if (confirmDelete) {
+    if (store.pendingDelete) {
+      const { commentId, commentType } = store.pendingDelete;
+
+      if (commentType === "comment") {
+        store.comments = store.comments.filter((comment) => comment.id !== commentId);
+      } else if (commentType === "reply") {
+        store.comments = store.comments.map((comment) => {
+          return {
+            ...comment,
+            replies: comment.replies.filter((reply) => reply.id !== commentId),
+          };
+        });
+      }
+
+      store.pendingDelete = null;
+      document.getElementById("delete-modal").classList.add("hidden");
+      renderApp();
+    }
+  }
+
+// Edit Button
+const editBtn = event.target.closest(".edit-btn");
+if (editBtn) {
+  const commentId = Number(editBtn.dataset.commentId);
+
+  // Check if already editing this comment (UPDATE mode)
+  if (store.beingEdited === commentId) {
+    const textarea = document.getElementById("edit-textarea");
+    const newContent = textarea.value.trim();
+    const commentType = editBtn.dataset.type;
+
+    if (!newContent) return;
+
+    if (commentType === "comment") {
+      const comment = store.comments.find((c) => c.id === commentId);
+      if (comment) {
+        comment.content = newContent;
+        comment.isEdited = true;
+      }
+    } else if (commentType === "reply") {
+      for (const comment of store.comments) {
+        const reply = comment.replies.find((r) => r.id === commentId);
+        if (reply) {
+          reply.content = newContent;
+          reply.isEdited = true;
+          break;
+        }
+      }
+    }
+
+    store.beingEdited = null;
+  } else {
+    // Enter edit mode
+    store.beingEdited = commentId;
+  }
+
+  renderApp();
+}
+
+
+
+
+
+
+
+
   });
 
 
@@ -131,9 +221,23 @@ renderApp()
 
 
 function handleVote(commentId, delta) {
+  // Try to find in top-level comments first
   const comment = store.comments.find((c) => c.id === commentId);
-  comment.score += delta;
-  renderApp();
+  if (comment) {
+    comment.score += delta;
+    renderApp();
+    return;
+  }
+
+  // If not found, search in replies
+  for (const parentComment of store.comments) {
+    const reply = parentComment.replies.find((r) => r.id === commentId);
+    if (reply) {
+      reply.score += delta;
+      renderApp();
+      return;
+    }
+  }
 }
 
 export { setupEventListeners };
