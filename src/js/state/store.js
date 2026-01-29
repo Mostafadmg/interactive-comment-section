@@ -31,7 +31,7 @@ const initialComments = [
 How long have you been coding for? I'm still fairly new myself, but I'm really keen to dive into React soon too. If you have any recommendations on where to learn React (courses, docs, or resources you found useful), I'd love to hear them. Thanks! 🙌`,
     author: {
       username: "Mostafa Damghani",
-      avatar: "/src/assets/images/avatars/Mostafa.jpg",
+      avatar: "src/assets/images/avatars/Mostafa.jpg",
     },
     timestamp: Date.now(),
     score: 7,
@@ -44,7 +44,7 @@ How long have you been coding for? I'm still fairly new myself, but I'm really k
 How long have you been coding for? I’m still early in my journey but planning to jump into React soon. Would be great to know where you’d recommend learning it from. Appreciate any tips! 🙏`,
     author: {
       username: "Sara Damghani",
-      avatar: "/src/assets/images/avatars/sara.jpg",
+      avatar: "src/assets/images/avatars/Sara.jpg",
     },
     timestamp: Date.now(),
     score: 7,
@@ -55,7 +55,7 @@ How long have you been coding for? I’m still early in my journey but planning 
 
 const currentUser = {
   username: "Mostafa Damghani",
-  avatar: "/src/assets/images/avatars/Mostafa.jpg",
+  avatar: "src/assets/images/avatars/Mostafa.jpg",
 };
 
 // The store - single source of truth
