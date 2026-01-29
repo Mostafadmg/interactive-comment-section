@@ -1,8 +1,9 @@
 import { store } from "./state/store.js";
 import { createReplyForm } from "./AddCommentForm.js";
+import { html } from 'lit-html'; // ✅ JavaScript finds it automatically
 
 function createCommentCard(comment) {
-  return `
+  return html`
     <div class="comment-container bg-white rounded-lg p-4 sm:p-6">
       <div class="comment-content flex flex-col md:flex-row gap-3 sm:gap-4">
 
@@ -35,12 +36,12 @@ function createCommentCard(comment) {
             <span class="font-medium text-[#334253] text-sm sm:text-base">
               ${comment.author.username}
             </span>
-            ${comment.author.username === store.currentUser.username ? '<span class="bg-[#5357B6] text-white text-[0.8125rem] font-medium leading-[120%] not-italic px-2 py-0.5 rounded">you</span>' : ''}
+            ${comment.author.username === store.currentUser.username ? html`<span class="bg-[#5357B6] text-white text-[0.8125rem] font-medium leading-[120%] not-italic px-2 py-0.5 rounded">you</span>` : ''}
             <span class="text-[#67727E] text-xs sm:text-sm">
               ${formatTimestamp(comment.timestamp)}
             </span>
 
-            ${comment.author.username === store.currentUser.username ? `
+            ${comment.author.username === store.currentUser.username ? html`
             <!-- Delete & Edit buttons -->
             <div class="hidden md:flex items-center gap-3 sm:gap-4 ml-auto">
               <button class="delete-btn group flex items-center gap-1.5 sm:gap-2 text-[#ED6368] hover:opacity-60 font-medium transition text-sm sm:text-base" data-comment-id="${comment.id}" data-type="comment">
@@ -52,7 +53,7 @@ function createCommentCard(comment) {
                 <span>${comment.id === store.beingEdited ? 'Update' : 'Edit'}</span>
               </button>
             </div>
-            ` : `
+            ` : html`
             <!-- Reply button -->
             <button class="reply-btn group hidden md:flex items-center gap-1.5 sm:gap-2 text-[#5357B6] hover:text-[#C5C6EF] font-medium transition text-sm sm:text-base ml-auto" data-comment-id="${comment.id}">
               <svg width="14" height="13" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 13" class="shrink-0 overflow-visible">
@@ -66,10 +67,10 @@ function createCommentCard(comment) {
           <!-- Comment text -->
         ${
           comment.id === store.beingEdited
-            ? `
+            ? html`
     <textarea id="edit-textarea" class="w-full h-32 resize-none text-[#67727E] leading-relaxed p-4 border border-gray-200 rounded-lg focus:outline-none focus:border-[#5357B6] text-sm sm:text-base">${comment.content}</textarea>
   `
-            : `
+            : html`
     <p class="text-[#67727E] leading-relaxed whitespace-pre-line text-sm sm:text-base">${comment.content}</p>
   `
         }
@@ -93,7 +94,7 @@ function createCommentCard(comment) {
               </button>
             </div>
 
-            ${comment.author.username === store.currentUser.username ? `
+            ${comment.author.username === store.currentUser.username ? html`
             <!-- Delete & Edit buttons (mobile) -->
             <div class="flex items-center gap-3 sm:gap-4">
               <button class="delete-btn group flex items-center gap-1.5 sm:gap-2 text-[#ED6368] hover:opacity-60 font-medium transition text-sm sm:text-base" data-comment-id="${comment.id}" data-type="comment">
@@ -105,7 +106,7 @@ function createCommentCard(comment) {
                 <span>${comment.id === store.beingEdited ? 'Update' : 'Edit'}</span>
               </button>
             </div>
-            ` : `
+            ` : html`
             <!-- Reply button (mobile) -->
             <button class="reply-btn group flex items-center gap-1.5 sm:gap-2 text-[#5357B6] hover:text-[#C5C6EF] font-medium transition text-sm sm:text-base" data-comment-id="${comment.id}">
               <svg width="14" height="13" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 13" class="shrink-0 overflow-visible">
@@ -121,9 +122,7 @@ function createCommentCard(comment) {
 
     ${comment.id === store.replyingTo ? createReplyForm(comment.author.username) : ""}
 
-
- ${comment.replies.length > 0 ? comment.replies.map((reply) => createReplyCard(reply)).join("") : ""}
-
+    ${comment.replies.length > 0 ? comment.replies.map((reply) => createReplyCard(reply)) : ""}
 
   `;
 }
@@ -159,7 +158,7 @@ function formatTimestamp(timestamp) {
 
 
 function createReplyCard(reply) {
-  return `
+  return html`
   <div class="ml-4 md:ml-10 pl-4 md:pl-6 border-l-2 border-gray-200">
     <div class="comment-container bg-white rounded-lg p-4 sm:p-6">
       <div class="comment-content flex flex-col md:flex-row gap-3 sm:gap-4">
@@ -193,12 +192,12 @@ function createReplyCard(reply) {
             <span class="font-medium text-[#334253] text-sm sm:text-base">
               ${reply.author.username}
             </span>
-            ${reply.author.username === store.currentUser.username ? '<span class="bg-[#5357B6] text-white text-[0.8125rem] font-medium leading-[120%] not-italic px-2 py-0.5 rounded">you</span>' : ''}
+            ${reply.author.username === store.currentUser.username ? html`<span class="bg-[#5357B6] text-white text-[0.8125rem] font-medium leading-[120%] not-italic px-2 py-0.5 rounded">you</span>` : ''}
             <span class="text-[#67727E] text-xs sm:text-sm">
               ${formatTimestamp(reply.timestamp)}
             </span>
 
-            ${reply.author.username === store.currentUser.username ? `
+            ${reply.author.username === store.currentUser.username ? html`
             <!-- Delete & Edit buttons -->
             <div class="hidden md:flex items-center gap-3 sm:gap-4 ml-auto">
               <button class="delete-btn group flex items-center gap-1.5 sm:gap-2 text-[#ED6368] hover:opacity-60 font-medium transition text-sm sm:text-base" data-comment-id="${reply.id}" data-type="reply">
@@ -210,7 +209,7 @@ function createReplyCard(reply) {
                 <span>${reply.id === store.beingEdited ? 'Update' : 'Edit'}</span>
               </button>
             </div>
-            ` : `
+            ` : html`
             <!-- Reply button -->
             <button class="reply-btn group hidden md:flex items-center gap-1.5 sm:gap-2 text-[#5357B6] hover:text-[#C5C6EF] font-medium transition text-sm sm:text-base ml-auto" data-comment-id="${reply.id}">
               <svg width="14" height="13" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 13" class="shrink-0 overflow-visible">
@@ -224,10 +223,10 @@ function createReplyCard(reply) {
           <!-- Comment text -->
         ${
           reply.id === store.beingEdited
-            ? `
+            ? html`
     <textarea id="edit-textarea" class="w-full h-32 resize-none text-[#67727E] leading-relaxed p-4 border border-gray-200 rounded-lg focus:outline-none focus:border-[#5357B6] text-sm sm:text-base">${reply.content}</textarea>
   `
-            : `
+            : html`
     <p class="text-[#67727E] leading-relaxed whitespace-pre-line text-sm sm:text-base">${reply.content}</p>
   `
         }
@@ -251,7 +250,7 @@ function createReplyCard(reply) {
               </button>
             </div>
 
-            ${reply.author.username === store.currentUser.username ? `
+            ${reply.author.username === store.currentUser.username ? html`
             <!-- Delete & Edit buttons (mobile) -->
             <div class="flex items-center gap-3 sm:gap-4">
               <button class="delete-btn group flex items-center gap-1.5 sm:gap-2 text-[#ED6368] hover:opacity-60 font-medium transition text-sm sm:text-base" data-comment-id="${reply.id}" data-type="reply">
@@ -263,7 +262,7 @@ function createReplyCard(reply) {
                 <span>${reply.id === store.beingEdited ? 'Update' : 'Edit'}</span>
               </button>
             </div>
-            ` : `
+            ` : html`
             <!-- Reply button (mobile) -->
             <button class="reply-btn group flex items-center gap-1.5 sm:gap-2 text-[#5357B6] hover:text-[#C5C6EF] font-medium transition text-sm sm:text-base" data-comment-id="${reply.id}">
               <svg width="14" height="13" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 13" class="shrink-0 overflow-visible">

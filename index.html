@@ -15,6 +15,16 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 
+    <!-- Import map for lit-html -->
+    <script type="importmap">
+      {
+        "imports": {
+          "lit-html": "https://cdn.jsdelivr.net/npm/lit-html@3/+esm",
+          "lit-html/": "https://cdn.jsdelivr.net/npm/lit-html@3/"
+        }
+      }
+    </script>
+
     <!-- Our custom styles -->
     <link rel="stylesheet" href="src/styles/main.css" />
   </head>

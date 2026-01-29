@@ -1,7 +1,8 @@
 import { store } from "./state/store.js";
+import { html } from 'lit-html';
 
 function createAddCommentForm() {
-  return `
+  return html`
 <div class="addComment-container bg-white rounded-lg">
 <div class="addComment-content p-4 sm:p-6">
 <div class="comment-Input">
@@ -22,7 +23,7 @@ export { createAddCommentForm, createReplyForm };
 
 
 function createReplyForm(username) {
-  return `
+  return html`
   <div class ="ml-4 md:ml-10 pl-4 md:pl-6 border-l-2 border-gray-200">
     <div class="addComment-container bg-white rounded-lg">
       <div class="addComment-content p-6">
